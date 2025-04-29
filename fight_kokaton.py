@@ -85,6 +85,9 @@ class Bird:
         screen.blit(self.img, self.rct)
 
 class Score:
+    """
+    スコアを表示するクラス
+    """
     def __init__(self):
         self.fonto = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体",30)
         self.score = 0 
@@ -95,8 +98,6 @@ class Score:
     def update(self,screen: pg.Surface):
         self.img = self.fonto.render("スコア:"+str(self.score),0,(0,0,255))
         screen.blit(self.img, self.rct)
-
-
 
 class Beam:
      """
