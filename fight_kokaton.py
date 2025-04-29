@@ -84,6 +84,19 @@ class Bird:
             self.img = __class__.imgs[tuple(sum_mv)]
         screen.blit(self.img, self.rct)
 
+class Score:
+    def __init__(self):
+        self.fonto = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体",30)
+        self.score = 0 
+        self.img = self.fonto.render("スコア:"+str(self.score),0,(0,0,255))
+        self.rct = self.img.get_rect()
+        self.rct.center = (100,50)
+
+    def update(self,screen: pg.Surface):
+        self.img = self.fonto.render("スコア:"+str(self.score),0,(0,0,255))
+        screen.blit(self.img, self.rct)
+
+
 
 class Beam:
      """
@@ -147,6 +160,7 @@ def main():
     bg_img = pg.image.load("fig/pg_bg.jpg")
     bird = Bird((300, 200))
     beam = None
+    score = Score()
     #bomb = Bomb((255, 0, 0), 10)
     bombs = []
     for i in range(NUM_OF_BOMBS):
@@ -181,11 +195,13 @@ def main():
                     beam = None #ビームを消す
                     bombs[j] = None #爆弾を消す
                     bird.change_img(6, screen)#喜びエフェクト
+                    score.score+=1
             bombs = [bomb for bomb in bombs if bomb is not None]#撃ち落されてない爆弾だけのリスト
-        
 
+        
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
+        score.update(screen)
         if beam is not None:
             beam.update(screen)    
         for bomb in bombs:
